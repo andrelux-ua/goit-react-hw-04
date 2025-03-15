@@ -5,4 +5,5 @@ function ImageCard({ item }) {
     </div>
   );
 }
+
 export default ImageCard;
