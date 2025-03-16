@@ -1,8 +1,6 @@
 import Modal from 'react-modal';
 import { useEffect } from 'react';
-import css from './ImageModule.module.css';
-
-Modal.setAppElement('#root');
+import css from './ImageModal.module.css';
 
 function ImageModal({ isOpen, onClose, image }) {
   useEffect(() => {
@@ -12,11 +10,16 @@ function ImageModal({ isOpen, onClose, image }) {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      window.removeEventListener('keydown', handleKeyDown);
+    }
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [isOpen, onClose]);
 
   if (!image) return null;
 
@@ -25,14 +28,24 @@ function ImageModal({ isOpen, onClose, image }) {
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Image Modal"
-      className={css.modalOverlay}
+      className={css.modalContent}
+      overlayClassName={css.modalOverlay}
     >
-      <div onClick={onClose} className={css.modalContent}>
-        <img
-          src={image.urls.regular}
-          alt={image.alt_description}
-          className={css.moduleImage}
-        />
+      <button onClick={onClose} className={css.closeButton}>
+        ✖
+      </button>
+      <img
+        src={image.urls.regular}
+        alt={image.alt_description}
+        className={css.modalImage}
+      />
+      <div>
+        <p className={css.imageInfo}>
+          <strong>Author:</strong> {image.user.name}
+        </p>
+        <p className={css.imageInfo}>
+          <strong>Likes:</strong> ❤️ {image.likes}
+        </p>
       </div>
     </Modal>
   );

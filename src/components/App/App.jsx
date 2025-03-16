@@ -8,19 +8,24 @@ import Loader from '../Loader/Loader';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ImageModal from '../ImageModal/ImageModal';
+import Modal from 'react-modal'; // Переносимо setAppElement сюди
+
+Modal.setAppElement('#root');
 
 function App() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSearch = searchTopic => {
     setSearchTerm(`${searchTopic}/${Date.now()}`);
     setPage(1);
     setArticles([]);
+    setError('');
   };
 
   const handleLoadMoreClick = () => {
@@ -29,25 +34,25 @@ function App() {
 
   const handleImageClick = image => {
     setSelectedImage(image);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedImage(null);
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedImage(null), 300);
   };
 
   useEffect(() => {
-    if (searchTerm === '') {
-      return;
-    }
+    if (searchTerm === '') return;
 
     async function getData() {
       try {
-        setError(false);
+        setError('');
         setIsLoading(true);
         const data = await fetchArticles(searchTerm.split('/')[0], page);
         setArticles(prevArticles => [...prevArticles, ...data]);
-      } catch {
-        setError(true);
+      } catch (error) {
+        setError('Whoops, there was an error. Please reload.');
         toast.error('Please reload, there was an error!');
       } finally {
         setIsLoading(false);
@@ -61,9 +66,7 @@ function App() {
     <>
       <SearchBar onSubmit={handleSearch} />
       <Toaster />
-      {error && (
-        <ErrorMessage message="Whoops, there was an error. Please reload." />
-      )}
+      {error && <ErrorMessage message={error} />}
       {articles.length > 0 && (
         <ImageGallery items={articles} onImageClick={handleImageClick} />
       )}
@@ -71,13 +74,11 @@ function App() {
       {articles.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMoreClick} />
       )}
-      {selectedImage && (
-        <ImageModal
-          isOpen={!!selectedImage}
-          onClose={closeModal}
-          image={selectedImage}
-        />
-      )}
+      <ImageModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        image={selectedImage}
+      />
     </>
   );
 }

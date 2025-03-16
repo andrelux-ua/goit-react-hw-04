@@ -1,9 +1,8 @@
 .loaderContainer {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  height: 100vh;
 }
 
 .loaderText {
@@ -11,4 +10,5 @@
   font-size: 18px;
   font-weight: bold;
   color: #555;
+  text-align: center;
 }
