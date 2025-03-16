@@ -1,4 +1,19 @@
-.gallery {
+.masonryGrid {
+  display: flex;
+  margin-left: -10px;
+  width: auto;
+}
+
+.masonryColumn {
+  padding-left: 10px;
+  background-clip: padding-box;
+}
+
+.masonryColumn > div {
+  margin-bottom: 10px;
+}
+
+/* .gallery {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -14,4 +29,4 @@
 
 .galleryItem:hover {
   transform: scale(1.05);
-}
+} */

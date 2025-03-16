@@ -1,10 +1,9 @@
+import css from './LoadMoreBtn.module.css';
+
 function LoadMoreBtn({ onClick }) {
   return (
-    <div style={{ textAlign: 'center', margin: '20px 0' }}>
-      <button
-        onClick={onClick}
-        style={{ padding: '10px 20px', fontSize: '16px' }}
-      >
+    <div className={css.loadMoreContainer}>
+      <button onClick={onClick} className={css.loadMoreButton}>
         Load more
       </button>
     </div>
