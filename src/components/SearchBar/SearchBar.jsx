@@ -12,15 +12,18 @@ function SearchBar({ onSubmit }) {
         }}
       >
         {({ handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} className={css.form}>
             <Field
               type="text"
               name="searchTopic"
               autoComplete="off"
               autoFocus
               placeholder="Search images and photos"
+              className={css.input}
             />
-            <button type="submit">Search</button>
+            <button type="submit" className={css.button}>
+              Search
+            </button>
           </Form>
         )}
       </Formik>

@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
 import { useEffect } from 'react';
+import css from './ImageModule.module.css';
 
 Modal.setAppElement('#root');
 
@@ -24,26 +25,13 @@ function ImageModal({ isOpen, onClose, image }) {
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Image Modal"
-      style={{
-        overlay: { backgroundColor: 'rgba(0, 0, 0, 0.75)' },
-        content: {
-          maxWidth: '80vw',
-          maxHeight: '80vh',
-          margin: 'auto',
-          padding: 0,
-          background: 'transparent',
-          border: 'none',
-        },
-      }}
+      className={css.modalOverlay}
     >
-      <div
-        onClick={onClose}
-        style={{ display: 'flex', justifyContent: 'center' }}
-      >
+      <div onClick={onClose} className={css.modalContent}>
         <img
           src={image.urls.regular}
           alt={image.alt_description}
-          style={{ width: '100%', maxWidth: '800px', cursor: 'pointer' }}
+          className={css.moduleImage}
         />
       </div>
     </Modal>
