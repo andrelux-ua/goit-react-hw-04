@@ -16,9 +16,11 @@ function SearchBar({ onSubmit }) {
       <Formik
         initialValues={{ searchTopic: '' }}
         validationSchema={validationSchema}
+        validateOnBlur={false} // ❌ Вимикає валідацію при втраті фокусу
+        validateOnChange={false} // ❌ Вимикає валідацію під час введення
         onSubmit={(values, actions) => {
           if (!values.searchTopic.trim()) {
-            toast.error('Please enter a search term'); // 🔥 Показуємо повідомлення про помилку
+            toast.error('Please enter a search term');
             return;
           }
           onSubmit(values.searchTopic);
