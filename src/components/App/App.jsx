@@ -8,9 +8,6 @@ import Loader from '../Loader/Loader';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ImageModal from '../ImageModal/ImageModal';
-import Modal from 'react-modal';
-
-Modal.setAppElement('#root');
 
 function App() {
   const [articles, setArticles] = useState([]);

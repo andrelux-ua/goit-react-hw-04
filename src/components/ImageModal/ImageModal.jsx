@@ -1,7 +1,7 @@
 import Modal from 'react-modal';
 import { useEffect } from 'react';
 import css from './ImageModal.module.css';
-
+Modal.setAppElement('#module-root');
 function ImageModal({ isOpen, onClose, image }) {
   useEffect(() => {
     const handleKeyDown = event => {
